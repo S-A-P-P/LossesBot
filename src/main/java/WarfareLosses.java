@@ -56,10 +56,13 @@ public class WarfareLosses{
             }
 
             System.out.println("How many " + userVehicle.toString().toLowerCase() + "'s does \"Person A\" have?");
+            System.out.println("Hit enter");
+            scanner.nextLine();
+            System.out.println("Now enter your value");
             int fighter1 = Integer.parseInt(scanner.nextLine());
             System.out.println("How many " + userVehicle.toString().toLowerCase() + "'s does \"Person B\" have?");
             System.out.println(
-                    "first hit enter"
+                    "hit enter"
             );
             scanner.nextLine();
             System.out.println("Now enter the value!");
@@ -79,9 +82,12 @@ public class WarfareLosses{
                         fighter1--;
                         personALosses++;
                     }
-                    else {
+                    else if (Math.max(diceRoll1, diceRoll2) == diceRoll2){
                         fighter2--;
                         personBLosses++;
+                    }
+                    else {
+                        System.out.println("Neither");
                     }
                 }
                 if((fighter1 == 0) || (fighter2 == 0))
@@ -91,15 +97,16 @@ public class WarfareLosses{
             }
             System.out.println(Util.line);
             System.out.println("End Result: ");
-            System.out.println("\t\"Person A\" Losses: " + "\u001B[31m" + personALosses + " " + userVehicle.toString().toLowerCase() + "'s" + "\u001B[");
-            System.out.println("\t\t\"Person A\" has " + fighter1 + " " + userVehicle.toString().toLowerCase() + "'s left");
-            System.out.println("\t\"Person B\" Losses: " + personBLosses + " " + userVehicle.toString().toLowerCase() + "'s");
-            System.out.println("\t\t\"Person B\" has " + fighter2 + " " + userVehicle.toString().toLowerCase() + "'s left");
+            System.out.println("\u001B[34m" + "\t\"Person A\" Losses: " + personALosses + " " + userVehicle.toString().toLowerCase() + "'s" + "\u001B[0m");
+            System.out.println("\u001B[31m" + "\t\"Person B\" Losses: " + personBLosses + " " + userVehicle.toString().toLowerCase() + "'s" + "\u001B[0m");
+            System.out.println();
+            System.out.println("\u001B[34m" + "\t\"Person A\" has " + fighter1 + " " + userVehicle.toString().toLowerCase() + "'s left" + "\u001B[0m");
+            System.out.println("\u001B[31m" + "\t\"Person B\" has " + fighter2 + " " + userVehicle.toString().toLowerCase() + "'s left" + "\u001B[0m");
 
             if(fighter1 == 0)
-                System.out.println("\"Person A\" wins!");
+                System.out.println("\u001B[31m" + "\"Person B\" wins!" + "\u001B[0m");
             if(fighter2 == 0)
-                System.out.println("\"Person B\" wins!");
+                System.out.println("\u001B[34m" + "\"Person A\" wins!" + "\u001B[0m");
             System.out.println(Util.line + "\n");
 
             System.out.println("Would you like to roll for another vehicle?");
@@ -108,6 +115,10 @@ public class WarfareLosses{
             if(!responseChecker(scanner.nextLine()))
                 break;
             isSecondTurn = true;
+            fighter1 = 0;
+            fighter2 = 0;
+            personALosses = 0;
+            personBLosses = 0;
         }
     }
 
