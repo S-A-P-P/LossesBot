@@ -12,11 +12,26 @@ public class WarfareLosses{
     static Integer personALosses = 0;
     static Integer personBLosses = 0;
 
+    static Integer vehicleCost;
+
+    static Integer personALossesCost;
+    static Integer personBLossesCost;
+
     enum VehicleType {
         /*PAGE 1 of shop*/ ARMORED_CAR, SELF_PROPELLED_ARTILLERY, COMBAT_TANK, FRIGATE, FIGHTER_AIRCRAFT, ATTACK_AIRCRAFT, MINESWEEPER, PATROL_SHIP
         /*PAGE 2 of shop*/ //add it later
     }
 
+    static Integer[] costs = {
+            145000,
+            3900000,
+            6810000,
+            80000000,
+            85000000,
+            152000000,
+            277000000,
+            400000000,
+    };
 
     public static void main(String args[]) {
 
@@ -49,9 +64,12 @@ public class WarfareLosses{
 
             //initializing userVehicle. Ensuring that it isn't a number that's not on the list
             while (true) {
-                userVehicle = selectFromEnum(Integer.parseInt(scanner.nextLine()), vehicles);
-                if (userVehicle != null)
+                int index = Integer.parseInt(scanner.nextLine());
+                userVehicle = selectFromEnum(index, vehicles);
+                if (userVehicle != null) {
+                    vehicleCost = setVehicleCost(index);
                     break;
+                }
                 System.out.println("That index exceeds the list! Please enter a number from  1 and " + vehicles.size() + "!");
             }
 
@@ -78,13 +96,14 @@ public class WarfareLosses{
                     diceRoll1 = diceRoll(r);
                     diceRoll2 = diceRoll(r);
 
+
                     if (Math.max(diceRoll1, diceRoll2) == diceRoll1) {
-                        fighter1--;
-                        personALosses++;
-                    }
-                    else if (Math.max(diceRoll1, diceRoll2) == diceRoll2){
                         fighter2--;
                         personBLosses++;
+                    }
+                    else if (Math.max(diceRoll1, diceRoll2) == diceRoll2){
+                        fighter1--;
+                        personALosses++;
                     }
                     else {
                         System.out.println("Neither");
@@ -95,6 +114,8 @@ public class WarfareLosses{
                 System.out.println("Rolling dice... (Round " + count + ")");
                 count++;
             }
+            personALossesCost = vehicleCost * personALosses;
+            personBLossesCost = vehicleCost * personBLosses;
             System.out.println(Util.line);
             System.out.println("End Result: ");
             System.out.println("\u001B[34m" + "\t\"Person A\" Losses: " + personALosses + " " + userVehicle.toString().toLowerCase() + "'s" + "\u001B[0m");
@@ -212,5 +233,11 @@ public class WarfareLosses{
         if(choice > list.size() || choice < 0)
             return null;
         return list.get(choice - 1);
+    }
+
+    public static Integer setVehicleCost(int index) {
+        if(index < 0 || index >= costs.length)
+            return null;
+        return costs[index - 1];
     }
 }
