@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WarfareLosses{
+public class OLDVersion {
 
     static boolean isSecondTurn = false;
 
@@ -114,12 +114,14 @@ public class WarfareLosses{
                 System.out.println("Rolling dice... (Round " + count + ")");
                 count++;
             }
-            personALossesCost = vehicleCost * personALosses;
-            personBLossesCost = vehicleCost * personBLosses;
+
+            personALossesCost = personALosses * vehicleCost;
+            personBLossesCost = personBLosses * vehicleCost;
+
             System.out.println(Util.line);
             System.out.println("End Result: ");
-            System.out.println("\u001B[34m" + "\t\"Person A\" Losses: " + personALosses + " " + userVehicle.toString().toLowerCase() + "'s" + "\u001B[0m");
-            System.out.println("\u001B[31m" + "\t\"Person B\" Losses: " + personBLosses + " " + userVehicle.toString().toLowerCase() + "'s" + "\u001B[0m");
+            System.out.println("\u001B[34m" + "\t\"Person A\" Losses: " + personALosses + " " + userVehicle.toString().toLowerCase() + "'s, or $" + personALossesCost + "\u001B[0m");
+            System.out.println("\u001B[31m" + "\t\"Person B\" Losses: " + personBLosses + " " + userVehicle.toString().toLowerCase() + "'s, or $" + personBLossesCost + "\u001B[0m");
             System.out.println();
             System.out.println("\u001B[34m" + "\t\"Person A\" has " + fighter1 + " " + userVehicle.toString().toLowerCase() + "'s left" + "\u001B[0m");
             System.out.println("\u001B[31m" + "\t\"Person B\" has " + fighter2 + " " + userVehicle.toString().toLowerCase() + "'s left" + "\u001B[0m");
