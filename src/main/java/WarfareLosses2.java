@@ -18,6 +18,9 @@ public class WarfareLosses2 {
     private static Integer player2Amt;
     private static Integer player2StartAmt;
 
+    private static Integer player1Losses = 0;
+    private static Integer player2Losses = 0;
+
     private static Integer player1Roll = Util.diceRoll();
     private static Integer player2Roll = Util.diceRoll();
 
@@ -37,11 +40,13 @@ public class WarfareLosses2 {
             System.out.printf("Round %s: %n", round);
             if (Math.max(player1Roll, player2Roll) == player1Roll) {
                 player2Amt--;
+                player2Losses++;
             } else if (player1Roll == player2Roll) {
                 System.out.println("Yo");
                 main(args);
             } else {
                 player1Amt--;
+                player1Losses++;
             }
             System.out.println("Player 1: " + player1Amt + ", Player 2: " + player2Amt);
             System.out.println("Player 1 roll: " + player1Roll + " Player 2 roll: " + player2Roll);
@@ -60,6 +65,7 @@ public class WarfareLosses2 {
                     Util.line + "\n" +
                     scannedLines.get(5) + " Lost " + (player1StartAmt - player1Amt) + " " + scannedLines.get(1) + "(s). \n" +
                     scannedLines.get(5) + " now has " + player1Amt + " " + scannedLines.get(1) + "(s) \n" +
+                    scannedLines.get(5) + " lost " +
                     scannedLines.get(6) + " Lost " + (player2StartAmt - player2Amt) + " " + scannedLines.get(1) + "(s). \n" +
                     scannedLines.get(6) + " now has " + player2Amt + " " + scannedLines.get(1) + "(s) \n" +
                     Util.line;
