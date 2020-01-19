@@ -24,6 +24,8 @@ public class WarfareLosses2 {
     private static Integer player1Roll = Util.diceRoll();
     private static Integer player2Roll = Util.diceRoll();
 
+    private static Integer oilCost = 0;
+
     public static void main(String[] args) {
         List<String> scannedLines = Util.intro();
 
@@ -33,6 +35,7 @@ public class WarfareLosses2 {
         System.out.println(player2Amt);
         player1StartAmt = player1Amt;
         player2StartAmt = player2Amt;
+        oilCost = Integer.parseInt(scannedLines.get(7));
         int round = 0;
 
         while (true) {
@@ -58,18 +61,24 @@ public class WarfareLosses2 {
         }
         System.out.print("Name the report: ");
         String name = scanner.nextLine();
-        String path = "/Users/pranavpolakam/Desktop/Programs/CSA/raids/LossesBot/src/main/java/Files_(*IMPORTANT*)/" + name;
+        String path = ""
         try {
             Path p1 = Paths.get(path);
-            String report = "Report " + name + ": \n" +
+            String report1 = "Report " + name + ": \n" +
                     Util.line + "\n" +
+                    scannedLines.get(5) + "'s Report: \n" +
                     scannedLines.get(5) + " Lost " + (player1StartAmt - player1Amt) + " " + scannedLines.get(1) + "(s). \n" +
                     scannedLines.get(5) + " now has " + player1Amt + " " + scannedLines.get(1) + "(s) \n" +
-                    scannedLines.get(5) + " lost " +
+                    scannedLines.get(5) + " lost " + (oilCost * player1Losses) + " oil \n" +
+                    Util.line;
+
+            String report2 = "\n" + Util.line + "\n" +
+                    scannedLines.get(6) + "'s Report: \n" +
                     scannedLines.get(6) + " Lost " + (player2StartAmt - player2Amt) + " " + scannedLines.get(1) + "(s). \n" +
                     scannedLines.get(6) + " now has " + player2Amt + " " + scannedLines.get(1) + "(s) \n" +
+                    scannedLines.get(6) + " lost " + (oilCost * player2Losses) + " oil \n" +
                     Util.line;
-            Files.write(p1, report.getBytes(), StandardOpenOption.CREATE);
+            Files.write(p1, (report1 + report2).getBytes(), StandardOpenOption.CREATE);
             System.out.println("File Created at Path " + path + "!");
         }
         catch(Exception e) {
